@@ -1,15 +1,9 @@
-import { Button } from "@/components/ui/Button"
-import { Dropdown } from "@/components/ui/DropDownMenu"
-import img from '@/assets/class.png'
-import Pop from "@/components/popup/Pop"
+import Routes from "@/routes/Routes"
 
 function App() {
 
   return (
-    <div className="m-12">
-      <Button text="lol" />
-      <Pop />
-    </div>
+    <Routes />
   )
 }
 
