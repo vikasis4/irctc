@@ -35,16 +35,16 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement>, Var
 
 const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     ({ className, value, srcimg, options, onOptionSelect, variant, size, ...props }, ref) => {
-        const [isOpen, setIsOpen] = React.useState(false);
+        const [isOpen, setIsOpen] = React.useState(false);        
 
         return (
             <div className="relative text-left w-full" {...props} ref={ref}>
                 <div
-                    tabIndex="0"
+                    tabIndex={0}
                     className={cn(dropdownVariants({ variant, size, className }))}
                     onClick={() => setIsOpen(!isOpen)}>
                     <div className='flex justify-center items-center gap-4'>
-                        <img src={srcimg} alt="new" className='h-4 w-3' />
+                        <img src={srcimg} alt="new" className='h-4 w-4' />
                         <h1>
                             {value}
                         </h1>
@@ -53,12 +53,13 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                 </div>
 
                 {(
-                    <div className={cn("origin-top absolute left-0 w-full right-0 mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" + `transition-all duration-200 transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`)}>
+                    <div className={cn("origin-top absolute left-0 w-full right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" + `transition-all duration-200 transform ${isOpen ? 'translate-y-0 scale-100 z-50 opacity-100' : 'scale-0 translate-y-8 opacity-0'}`)}>
                         <div className="flex flex-col py-1">
                             {options.map((option, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => {
+                                    onClick={(e:any) => {
+                                        e.preventDefault();
                                         onOptionSelect(option);
                                         setIsOpen(false);
                                     }}

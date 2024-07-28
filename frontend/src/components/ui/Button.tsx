@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-var baseStyles = 'inline-flex font-bold items-center justify-center rounded-md text-secondary text-lg transition-colors '
+var baseStyles = 'inline-flex font-bold items-center justify-center rounded-md text-secondary text-md transition-colors '
 
 const buttonVariants = cva(baseStyles,
     {

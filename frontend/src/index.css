@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type="date"].safari-input::-webkit-datetime-edit {
+    text-align: left;
+    padding-left: 10px;
+    /* Adjust padding to match icon spacing */
+}
+
+input[type="date"].safari-input::-webkit-inner-spin-button,
+input[type="date"].safari-input::-webkit-clear-button {
+    display: none;
+}
