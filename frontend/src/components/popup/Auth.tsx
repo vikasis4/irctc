@@ -3,12 +3,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/Button";
-
-
+import close from '@/assets/close.png';
+import useAppState from "@/hooks/useAppState";
 
 const Auth = () => {
 
     const [state, setState] = React.useState('Sign In');
+    const { setPopUpFxn } = useAppState();
 
     const schema = z.object({
         username: state == 'Register' ? z.string().min(4) : z.string().optional(),
@@ -41,7 +42,7 @@ const Auth = () => {
     var alertStyles = 'text-red-500 text-left w-full'
 
     return (
-        <form className="flex justify-around items-center px-4 flex-col gap-2 bg-secondary rounded-md h-[80%] w-[90%] shadow-md" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex justify-around items-center px-4 relative flex-col gap-2 bg-secondary rounded-md h-[80%] w-[90%] shadow-md" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-primary font-bold text-5xl pb-2 border-primary border-b-4">{state}</h1>
             <div className="flex flex-col justify-center items-center gap-4 w-full">
                 {
@@ -81,6 +82,7 @@ const Auth = () => {
                     />
                 </div>
             </div>
+            <img onClick={() => setPopUpFxn(false, 'auth')} src={close} alt="close" className="absolute top-2 right-2 h-8 w-8 cursor-pointer" />
         </form>
     );
 };

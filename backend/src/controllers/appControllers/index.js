@@ -1,23 +1,24 @@
 const createCRUDController = require('@/controllers/middlewaresControllers/createCRUDController');
-const { routesList } = require('@/models');
+const { routesList } = require('@/models/utils');
 
 const { globSync } = require('glob');
 const path = require('path');
 
 const pattern = './src/controllers/appControllers/*/**/';
-const controllerDirectories = globSync(pattern).map((filePath) => {
+const controllerDirectories = globSync(pattern, { ignore: 'index.js' }).map((filePath) => {
   return path.basename(filePath);
 });
+
+
 const appControllers = () => {
   const controllers = {};
   const hasCustomControllers = [];
   
   controllerDirectories.forEach((controllerName) => {
     try {
+      console.log(controllerName);
       const customController = require('@/controllers/appControllers/' + controllerName);
-      console.log('MISFEAT    ',customController);
-      console.log('MISFEAT    ',routesList);
-
+      
       if (customController) {
         hasCustomControllers.push(controllerName);
         controllers[controllerName] = customController;

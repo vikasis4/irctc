@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-var baseStyles = 'inline-flex font-bold items-center justify-center rounded-md text-secondary text-md transition-colors '
+var baseStyles = 'inline-flex font-bold hover:cursor-pointer active:scale-90 transition-all  items-center justify-center rounded-md text-secondary text-md duration-300 ease-in-out'
 
 const buttonVariants = cva(baseStyles,
     {
@@ -39,7 +39,7 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, children,text, href, variant, size, ...props }, ref) => {
+    ({ className, children, text, href, variant, size, ...props }, ref) => {
         // if (href) {
         //   return (
         //     <Link

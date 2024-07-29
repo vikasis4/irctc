@@ -11,9 +11,12 @@ import { Dropdown } from "@/components/ui/DropDownMenu";
 import briefcase from '@/assets/briefcase.png';
 import classimg from '@/assets/class.png';
 import { Checkable } from "@/components/ui/Checkable";
+import { useNavigate } from "react-router-dom";
+
 
 const Form = () => {
 
+    const navigate = useNavigate();
 
     const schema = z.object({
         from: z.string(),
@@ -33,6 +36,7 @@ const Form = () => {
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
             await new Promise((resolve) => setTimeout(resolve, 1000));
+            navigate('/showTrains')
             console.log(data);
         } catch (error) {
             setError("root", {
@@ -40,7 +44,6 @@ const Form = () => {
             });
         }
     };
-    console.log('Called');
 
     var inputStyles = 'p-2 border-b-2 rounded-none border-gray-300 w-full font-bold bg-secondary appearance-none text-primary';
     var alertStyles = 'text-red-500 text-left w-full'

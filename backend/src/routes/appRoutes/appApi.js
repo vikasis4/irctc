@@ -3,10 +3,11 @@ const { catchErrors } = require('@/handlers/errorHandlers');
 const router = express.Router();
 
 const appControllers = require('@/controllers/appControllers');
-const { routesList } = require('@/models');
+const { routesList } = require('@/models/utils');
+const userAuth = require('@/controllers/userControllers/userAuth');
 
 const routerApp = (entity, controller) => {
-  router.route(`/${entity}/create`).post(catchErrors(controller['create']));
+  router.route(`/${entity}/create`).post(userAuth.isValidAuthToken, catchErrors(controller['create']));
   router.route(`/${entity}/read/:id`).get(catchErrors(controller['read']));
   router.route(`/${entity}/update/:id`).patch(catchErrors(controller['update']));
   router.route(`/${entity}/delete/:id`).delete(catchErrors(controller['delete']));
@@ -15,14 +16,6 @@ const routerApp = (entity, controller) => {
   router.route(`/${entity}/listAll`).get(catchErrors(controller['listAll']));
   router.route(`/${entity}/filter`).get(catchErrors(controller['filter']));
   router.route(`/${entity}/summary`).get(catchErrors(controller['summary']));
-
-  if (entity === 'invoice' || entity === 'quote' || entity === 'offer' || entity === 'payment') {
-    router.route(`/${entity}/mail`).post(catchErrors(controller['mail']));
-  }
-
-  if (entity === 'quote') {
-    router.route(`/${entity}/convert/:id`).get(catchErrors(controller['convert']));
-  }
 };
 
 routesList.forEach(({ entity, controllerName }) => {

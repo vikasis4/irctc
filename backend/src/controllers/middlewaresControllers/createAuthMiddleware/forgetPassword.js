@@ -2,12 +2,8 @@ const Joi = require('joi');
 
 const mongoose = require('mongoose');
 
-const checkAndCorrectURL = require('./checkAndCorrectURL');
-const sendMail = require('./sendMail');
 const shortid = require('shortid');
-const { loadSettings } = require('@/middlewares/settings');
 
-const { useAppSettings } = require('@/settings');
 
 const forgetPassword = async (req, res, { userModel }) => {
   const UserPassword = mongoose.model(userModel + 'Password');
@@ -59,22 +55,11 @@ const forgetPassword = async (req, res, { userModel }) => {
     }
   ).exec();
 
-  const settings = useAppSettings();
-  const idurar_app_email = settings['idurar_app_email'];
-  const idurar_base_url = settings['idurar_base_url'];
 
-  const url = checkAndCorrectURL(idurar_base_url);
 
-  const link = url + '/resetpassword/' + user._id + '/' + resetToken;
 
-  await sendMail({
-    email,
-    name: user.name,
-    link,
-    subject: 'Reset your password | idurar',
-    idurar_app_email,
-    type: 'passwordVerfication',
-  });
+
+
 
   return res.status(200).json({
     success: true,

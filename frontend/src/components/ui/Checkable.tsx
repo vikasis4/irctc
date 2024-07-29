@@ -33,7 +33,7 @@ const Checkable = React.forwardRef<HTMLDivElement, CheckableProps>(
     ({ className, selected, disabled, variant, size, text, onChange, ...props }, ref) => {
 
         return (
-            <div className="flex w-full justify-start items-center z-40" ref={ref} {...props} onClick={onChange}>
+            <div className="flex w-full justify-start items-center" ref={ref} {...props} onClick={onChange}>
                 <div className={cn(checkableVariants({ variant: selected ? 'selected' : variant, size }))}>
                     {selected && (
                         <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

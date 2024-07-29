@@ -5,7 +5,8 @@ const appModelsFiles = globSync('./src/models/appModels/**/*.js');
 
 const pattern = './src/models/**/*.js';
 
-const modelsFiles = globSync(pattern).map((filePath) => {
+// All models files
+const modelsFiles = globSync(pattern, { ignore: 'index.js' }).map((filePath) => {
   const fileNameWithExtension = basename(filePath);
   const fileNameWithoutExtension = fileNameWithExtension.replace(
     extname(fileNameWithExtension),
@@ -45,5 +46,5 @@ for (const filePath of appModelsFiles) {
   };
   routesList.push(route);
 }
-console.log(constrollersList, appModelsList, modelsFiles, entityList, routesList);
+
 module.exports = { constrollersList, appModelsList, modelsFiles, entityList, routesList };
