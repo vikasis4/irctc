@@ -4,6 +4,7 @@ const logout = require('./logout');
 const register = require('./register');
 const forgetPassword = require('./forgetPassword');
 const resetPassword = require('./resetPassword');
+const tokenLogin = require('./tokenLogin');
 
 const createAuthMiddleware = (userModel) => {
   let authMethods = {};
@@ -20,6 +21,11 @@ const createAuthMiddleware = (userModel) => {
 
   authMethods.register = (req, res) =>
     register(req, res, {
+      userModel,
+    });
+
+  authMethods.tokenLogin = (req, res) =>
+    tokenLogin(req, res, {
       userModel,
     });
 

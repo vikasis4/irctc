@@ -6,10 +6,10 @@ import useAppState from '@/hooks/useAppState'
 
 function Navbar() {
 
-    const { setPopUpFxn } = useAppState();
+    const { setPopUpFxn, appState } = useAppState();
 
     const handleClick = () => {
-        setPopUpFxn(true, 'auth');
+        setPopUpFxn(true, appState.loggedIn ? "logout" : 'auth');
     }
 
     return (

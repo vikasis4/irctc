@@ -12,15 +12,18 @@ import briefcase from '@/assets/briefcase.png';
 import classimg from '@/assets/class.png';
 import { Checkable } from "@/components/ui/Checkable";
 import { useNavigate } from "react-router-dom";
+import useTrains from "@/hooks/useTrains";
+import useSearch from "@/hooks/useSearch";
 
 
 const Form = () => {
 
     const navigate = useNavigate();
+    const train = useTrains()
 
     const schema = z.object({
-        from: z.string(),
-        to: z.string(),
+        source: z.string(),
+        destination: z.string(),
     });
     type FormFields = z.infer<typeof schema>;
 
@@ -33,14 +36,21 @@ const Form = () => {
         resolver: zodResolver(schema),
     });
 
+    const search = useSearch()
+
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            navigate('/showTrains')
-            console.log(data);
+            var respose = await search(data.source, data.destination);
+            if (respose.success) {
+                navigate(`/showTrains/${data.source}/${data.destination}`);
+            } else {
+                setError("root", {
+                    message: "No Trains Found",
+                });
+            }
         } catch (error) {
             setError("root", {
-                message: "This email is already taken",
+                message: "Something went wrong",
             });
         }
     };
@@ -67,19 +77,19 @@ const Form = () => {
 
                 <div className={parenStyles}>
                     <img src={from} alt="from" className="h-4 w-4" />
-                    <input className={inputStyles} {...register("from")} type="text" placeholder="from" />
-                    <img src={swap} alt="from" className="h-8 w-8 rotate-90" />
+                    <input className={inputStyles} {...register("source")} type="text" placeholder="source" />
+                    <img src={swap} alt="source" className="h-8 w-8 rotate-90" />
                 </div>
-                {errors.from && (
-                    <div className={alertStyles}>{errors.from.message}</div>
+                {errors.source && (
+                    <div className={alertStyles}>{errors.source.message}</div>
                 )}
 
                 <div className={parenStyles}>
-                    <img src={to} alt="from" className="h-4 w-4" />
-                    <input className={inputStyles} {...register("to")} type="text" placeholder="to" />
+                    <img src={to} alt="destination" className="h-4 w-4" />
+                    <input className={inputStyles} {...register("destination")} type="text" placeholder="destination" />
                 </div>
-                {errors.to && (
-                    <div className={alertStyles}>{errors.to.message}</div>
+                {errors.destination && (
+                    <div className={alertStyles}>{errors.destination.message}</div>
                 )}
 
                 <div className={parenStyles}>

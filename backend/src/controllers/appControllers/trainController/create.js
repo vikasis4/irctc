@@ -5,6 +5,7 @@ const create = async (Model, req, res) => {
 
   const adminId = req.params.id;
 
+
   if (!adminId) {
     return res.status(403).json({
       success: false,

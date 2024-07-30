@@ -24,4 +24,14 @@ const minutesToTime = (totalMinutes: number): string => {
     return `${formattedHours}:${formattedMinutes}`;
 };
 
-export { formatDate, formatTime, minutesToTime };
+const timeToDateString = (time: string) => {
+    const [hours, minutes] = time.split(':');
+    const currentDate = new Date();
+    currentDate.setHours(parseInt(hours));
+    currentDate.setMinutes(parseInt(minutes));
+    currentDate.setSeconds(0);
+    currentDate.setMilliseconds(0);
+    return currentDate.toISOString(); // or another string format if needed
+};
+
+export { formatDate, formatTime, minutesToTime, timeToDateString };

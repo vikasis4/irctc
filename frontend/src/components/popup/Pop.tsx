@@ -1,12 +1,14 @@
 import Auth from './Auth'
 import useAppState from '@/hooks/useAppState'
+import Logout from './Logout';
 
 function Pop() {
 
     const { appState } = useAppState();
 
     const compMap: { [key: string]: JSX.Element } = {
-        'auth': <Auth />
+        'auth': <Auth />,
+        'logout': <Logout />
     }
 
     return (

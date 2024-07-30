@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "@/pages/Home"
 import ShowTrains from "@/pages/ShowTrains"
 import Error from "./Error"
+import Admin from "@/pages/Admin"
 
 function Routes() {
 
@@ -12,8 +13,12 @@ function Routes() {
             errorElement: <Error />
         },
         {
-            path: "/showTrains",
+            path: "/showTrains/:source/:destination",
             element: <ShowTrains />
+        },
+        {
+            path: "/admin",
+            element: <Admin />
         }
     ])
 

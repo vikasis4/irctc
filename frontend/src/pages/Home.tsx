@@ -1,8 +1,16 @@
 import React from 'react'
 import Navbar from '@/components/Navbar/Navbar'
 import Search from '@/components/Search/Search'
+import useAuth from "@/hooks/useAuth";
 
 function Home() {
+
+  const auth = useAuth();
+
+  React.useEffect(() => {
+    auth('user')
+  }, [])
+
   return (
     <div className='h-full w-full relative'>
       <Navbar />

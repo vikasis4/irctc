@@ -1,15 +1,22 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { set, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/Button";
 import close from '@/assets/close.png';
 import useAppState from "@/hooks/useAppState";
+import axios from "axios";
+
+var LOGIN_ADMIN = "http://localhost:8888/api/admin/auth/login/"
+var LOGIN_USER = "http://localhost:8888/api/user/auth/login/"
+var REGISTER_USER = "http://localhost:8888/api/user/auth/register/"
+var FrontUrl = "http://localhost:5173"
 
 const Auth = () => {
 
     const [state, setState] = React.useState('Sign In');
-    const { setPopUpFxn } = useAppState();
+    const { setPopUpFxn, setLogInFxn, setUserFxn } = useAppState();
+
 
     const schema = z.object({
         username: state == 'Register' ? z.string().min(4) : z.string().optional(),
@@ -29,11 +36,24 @@ const Auth = () => {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            console.log(data);
+            var URL = state == 'Register' ? REGISTER_USER : state == 'Admin Login' ? LOGIN_ADMIN : LOGIN_USER;
+            var type = state == 'Admin Login' ? 'admin' : 'user';
+            var response = await axios.post(URL, data, { withCredentials: true });
+            if (response.data.success) {
+                setPopUpFxn(false, 'logout');
+                setLogInFxn(true);
+                setUserFxn({ name: response.data.result.name, email: response.data.result.email, id: response.data.result._id, type });
+                if (state == 'Admin Login') {
+                    window.location.href = FrontUrl + '/admin';
+                }
+            } else {
+                setError("root", {
+                    message: response.data.message,
+                });
+            }
         } catch (error) {
             setError("root", {
-                message: "This email is already taken",
+                message: "Something went wrong. Please try again later.",
             });
         }
     };

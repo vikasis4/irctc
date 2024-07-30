@@ -6,6 +6,7 @@ const { catchErrors } = require('@/handlers/errorHandlers');
 const userAuth = require('@/controllers/userControllers/userAuth');
 
 router.route('/register').post(catchErrors(userAuth.register));
+router.route('/token').get(catchErrors(userAuth.tokenLogin));
 router.route('/login').post(catchErrors(userAuth.login));
 router.route('/forgetpassword').post(catchErrors(userAuth.forgetPassword));
 router.route('/resetpassword').post(catchErrors(userAuth.resetPassword));

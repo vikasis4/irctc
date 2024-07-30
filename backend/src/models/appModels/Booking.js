@@ -20,14 +20,12 @@ const Bookings = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Train',
         required: true,
-        unique: true,
         autopopulate: true
     },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true,
-        unique: true,
         autopopulate: true
     },
     created: {

@@ -3,11 +3,25 @@ import { createSlice } from '@reduxjs/toolkit';
 export type appStateProps = {
     showPopup: boolean;
     popUpContent: string;
+    loggedIn: boolean;
+    user: {
+        id: string;
+        email: string;
+        name: string;
+        type: string;
+    }
 }
 
 const initialState: appStateProps = {
     showPopup: false,
     popUpContent: 'auth',
+    loggedIn: false,
+    user: {
+        id: '',
+        email: '',
+        name: '',
+        type:'user'
+    }
 }
 
 const appStateSlice = createSlice({
@@ -18,8 +32,14 @@ const appStateSlice = createSlice({
             state.showPopup = action.payload.showPopup;
             state.popUpContent = action.payload.popUpContent
         },
+        setLogIn: (state, action) => {
+            state.loggedIn = action.payload;
+        },
+        setUser: (state, action) => {
+            state.user = action.payload
+        }
     }
 })
 
-export const { setPopUp } = appStateSlice.actions;
+export const { setPopUp, setLogIn, setUser } = appStateSlice.actions;
 export default appStateSlice.reducer;
