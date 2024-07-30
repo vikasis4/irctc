@@ -5,6 +5,13 @@ const create = async (Model, req, res) => {
 
   const adminId = req.params.id;
 
+  if (!adminId) {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin Id is required',
+    });
+  }
+
   const admin = await Admin.findOne({
     _id: adminId,
     removed: false,
@@ -19,12 +26,15 @@ const create = async (Model, req, res) => {
     });
   }
 
+  req.body.departureTime = new Date(req.body.departureTime);
+  req.body.arrivalTime = new Date(req.body.arrivalTime);
+
   var result = await Model.create({
     ...req.body
-  }).save()
+  })
 
-  return res.status(403).json({
-    success: false,
+  return res.status(200).json({
+    success: true,
     result,
     message: 'Suceesfull created the document',
   });

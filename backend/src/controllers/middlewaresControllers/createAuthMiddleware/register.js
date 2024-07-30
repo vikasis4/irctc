@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const bcrypt = require(bcrypt);
 
 const mongoose = require('mongoose');
 
@@ -31,6 +30,19 @@ const register = async (req, res, { userModel }) => {
         });
     }
 
+    const userExists = await UserModel.findOne({
+        email
+    })
+        .exec();
+
+    if (userExists) {
+        return res.status(409).json({
+            success: false,
+            result: null,
+            message: 'User already exists.',
+        });
+    }
+
     const user = await UserModel.create({
         email,
         name
@@ -40,7 +52,9 @@ const register = async (req, res, { userModel }) => {
         user: user._id,
         password
     })
-        .save();
+
+
+    await databasePassword.save();
 
 
     authUser(req, res, { user, databasePassword, password, UserPasswordModel });

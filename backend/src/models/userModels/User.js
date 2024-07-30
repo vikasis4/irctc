@@ -8,7 +8,7 @@ const userSchmea = new Schema({
   },
   enabled: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   email: {
     type: String,

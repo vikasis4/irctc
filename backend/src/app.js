@@ -40,8 +40,11 @@ app.use(compression());
 
 app.use('/api/admin/auth', coreAuthRouter);
 app.use('/api/admin/cred', adminAuth.isValidAuthToken, coreApiRouter);
-app.use('/api', userAuth.isValidAuthToken, appApiRouter);
+
+app.use('/api/app', userAuth.isValidAuthToken, appApiRouter);
+
 app.use('/api/open', openApiRouter);
+
 app.use('/api/user/auth', userAuthRouter);
 app.use('/api/user/cred', userAuth.isValidAuthToken, userApiRouter);
 

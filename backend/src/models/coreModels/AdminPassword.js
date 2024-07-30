@@ -11,11 +11,9 @@ const AdminPasswordSchema = new Schema({
   user: { type: mongoose.Schema.ObjectId, ref: 'Admin', required: true, unique: true },
   password: {
     type: String,
-    required: true,
   },
   salt: {
     type: String,
-    required: true,
   },
   resetToken: String,
   emailVerified: {
