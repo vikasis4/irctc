@@ -37,6 +37,17 @@ AdminPasswordSchema.methods.generateHash = function (salt, password) {
   return bcrypt.hashSync(salt + password);
 };
 
+AdminPasswordSchema.methods.generateSalt = function () {
+  return bcrypt.genSaltSync(10);
+};
+
+AdminPasswordSchema.pre('save', function (next) {
+  if (!this.isModified('password')) return next();
+  var salt = this.generateSalt();
+  this.salt = salt;
+  this.password = this.generateHash(salt, this.password);
+  next();
+});
 // checking if password is valid
 AdminPasswordSchema.methods.validPassword = function (salt, userpassword) {
   return bcrypt.compareSync(salt + userpassword, this.password);

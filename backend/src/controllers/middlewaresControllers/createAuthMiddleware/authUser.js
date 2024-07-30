@@ -49,7 +49,7 @@ const authUser = async (req, res, { user, databasePassword, password, UserPasswo
           email: user.email,
           photo: user.photo,
         },
-        message: 'Successfully login user',
+        message: 'Auth Successfully',
       });
   } else {
     return res.status(403).json({

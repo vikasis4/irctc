@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const adminSchema = new Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   enabled: {
     type: Boolean,
