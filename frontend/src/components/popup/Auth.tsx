@@ -42,10 +42,11 @@ const Auth = () => {
             if (response.data.success) {
                 setPopUpFxn(false, 'logout');
                 setLogInFxn(true);
+                localStorage.setItem('authType', type);
                 setUserFxn({ name: response.data.result.name, email: response.data.result.email, id: response.data.result._id, type });
-                if (state == 'Admin Login') {
+                if (state == 'Admin Login')
                     window.location.href = FrontUrl + '/admin';
-                }
+
             } else {
                 setError("root", {
                     message: response.data.message,

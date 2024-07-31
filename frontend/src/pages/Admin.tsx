@@ -6,15 +6,16 @@ import { Button } from "@/components/ui/Button";
 import axios from "axios";
 import useAppState from "@/hooks/useAppState";
 import { timeToDateString } from "@/utils/handleDate";
-import useAuth from "@/hooks/useAuth";
 
 const URL = 'http://localhost:8888/api/admin/cred/train/create/'
 
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 const schema = z.object({
-    trainName: z.string(),
-    trainNumber: z.number(),
+    trainName: z.string().min(4),
+    trainNumber: z.number().refine((num) => num.toString().length === 6, {
+        message: "Train Number must be 6 digits",
+    }),
     source: z.string(),
     destination: z.string(),
     arrivalTime: z.string().refine((time) => timeRegex.test(time), {
@@ -52,7 +53,7 @@ function Admin() {
             data.arrivalTime = timeToDateString(data.arrivalTime);
             data.departureTime = timeToDateString(data.departureTime);
 
-            var response = await axios.post(URL + app.appState.user.id, data, {withCredentials: true});
+            var response = await axios.post(URL + app.appState.user.id, data, { withCredentials: true });
 
             if (response.data.success) {
                 alert("Train Created Successfully");
@@ -139,12 +140,6 @@ function Admin() {
 }
 
 const NoAccess = () => {
-    const auth = useAuth()
-
-    React.useEffect(() => {
-        auth('admin')
-    }, [])
-
     return <h1 className="flex justify-center items-center h-screen w-screen text-4xl text-red-400">Unauthorized</h1>
 }
 

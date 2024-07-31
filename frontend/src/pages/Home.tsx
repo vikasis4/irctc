@@ -1,21 +1,22 @@
 import React from 'react'
 import Navbar from '@/components/Navbar/Navbar'
 import Search from '@/components/Search/Search'
-import useAuth from "@/hooks/useAuth";
+import Wrapper from '@/components/Search/Wrapper'
 
 function Home() {
 
-  const auth = useAuth();
-
-  React.useEffect(() => {
-    auth('user')
-  }, [])
 
   return (
-    <div className='h-full w-full relative'>
+    <div
+      className='h-full w-full relative'>
       <Navbar />
-      <Search />
-      <div className='rounded-sm shadow-2xl border-2 border-gray-200 text-primary mb-12 m-auto p-6 w-[90%]'>Please click here for Empanelment for PAD items for Catering.</div>
+      <Wrapper>
+        <Search />
+      </Wrapper>
+      {/* <div
+        className='rounded-sm shadow-2xl border-2 border-gray-200 text-primary mb-12 m-auto p-6 w-[90%] lg:w-max lg:mt-4'>
+        Please click here for Empanelment for PAD items for Catering.
+      </div> */}
     </div>
   )
 }

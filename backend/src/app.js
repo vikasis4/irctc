@@ -38,6 +38,10 @@ app.use(compression());
 
 // Here our API Routes
 
+app.get('/es', (req, res) => {
+  res.json({ message: 'Hola Mundo' });
+});
+
 app.use('/api/admin/auth', coreAuthRouter);
 app.use('/api/admin/cred', adminAuth.isValidAuthToken, coreApiRouter);
 

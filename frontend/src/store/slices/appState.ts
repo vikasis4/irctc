@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const type = localStorage.getItem('authType') || 'user';
+
 export type appStateProps = {
     showPopup: boolean;
     popUpContent: string;
@@ -20,7 +22,7 @@ const initialState: appStateProps = {
         id: '',
         email: '',
         name: '',
-        type:'user'
+        type
     }
 }
 
