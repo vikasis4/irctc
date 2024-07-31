@@ -40,7 +40,7 @@ const Form = () => {
         try {
             var respose = await search(data.source, data.destination);
             if (respose.success) {
-                navigate(`/showTrains/${data.source}/${data.destination}`);
+                navigate(`/showTrains?source=${data.source}&destination=${data.destination}`);
             } else {
                 setError("root", {
                     message: "No Trains Found",

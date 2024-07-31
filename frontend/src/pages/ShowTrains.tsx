@@ -3,15 +3,17 @@ import Header from '@/components/SearchTrains/Header'
 import useSearch from '@/hooks/useSearch';
 import useTrains from '@/hooks/useTrains'
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 function ShowTrains() {
 
   const { allTrains } = useTrains();
   const search = useSearch();
-  const { source = '', destination = '' } = useParams();
-  
-  
+
+  const [params] = useSearchParams();
+  const source = params.get('source') || '';
+  const destination = params.get('destination') || '';  
+
   React.useEffect(() => {
     if (allTrains.length === 0) {
       (async () => {
@@ -32,7 +34,7 @@ function ShowTrains() {
   return (
     <div className='h-full w-full'>
 
-      <Header data={allTrains[0]} />
+      <Header />
 
       <div className='flex flex-col justify-center items-center gap-4 px-4 py-12 w-full overflow-auto'>
         {

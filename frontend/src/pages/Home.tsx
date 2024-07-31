@@ -13,10 +13,6 @@ function Home() {
       <Wrapper>
         <Search />
       </Wrapper>
-      {/* <div
-        className='rounded-sm shadow-2xl border-2 border-gray-200 text-primary mb-12 m-auto p-6 w-[90%] lg:w-max lg:mt-4'>
-        Please click here for Empanelment for PAD items for Catering.
-      </div> */}
     </div>
   )
 }

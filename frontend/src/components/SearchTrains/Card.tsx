@@ -3,7 +3,7 @@ import { formatDate, formatTime, minutesToTime } from '@/utils/handleDate'
 import { Button } from '../ui/Button'
 import useBooking from '@/hooks/useBooking';
 
-function Card({ data }: { data: SingleTrainType }) {
+function Card({ data, type = "default" }: { data: SingleTrainType, type?: string }) {
 
     const bookTicket = useBooking(data._id);
 
@@ -13,11 +13,11 @@ function Card({ data }: { data: SingleTrainType }) {
             return;
         };
 
-        await bookTicket().then((res) => {            
+        await bookTicket().then((res) => {
             if (res.success) {
                 alert('Ticket Booked Successfully')
             } else {
-                alert('Something went wrong. Please try again later.')
+                alert(res.message)
             }
         })
     }
@@ -34,7 +34,12 @@ function Card({ data }: { data: SingleTrainType }) {
                 <h1>Total Seats :- {data.totalSeats}</h1>
                 <h1>Available Seats :- {data.availableSeats}</h1>
             </div>
-            <Button onClick={handleClick} text={data.availableSeats == 0 ? "No Seat Available" : "Book Now"} variant="primary" size="default" className='ml-4' />
+            {
+                type == 'default' ?
+                    <Button onClick={handleClick} text={data.availableSeats == 0 ? "No Seat Available" : "Book Now"} variant="primary" size="default" className='ml-4' />
+                    :
+                    null
+            }
         </div>
     )
 }

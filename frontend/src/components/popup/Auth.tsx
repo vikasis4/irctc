@@ -63,7 +63,10 @@ const Auth = () => {
     var alertStyles = 'text-red-500 text-left w-full'
 
     return (
-        <form className="flex justify-around items-center px-4 relative flex-col gap-2 bg-secondary rounded-md h-[80%] w-[90%] shadow-md" onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className="flex justify-around items-center px-4 relative flex-col gap-2 bg-secondary rounded-md h-[80%] w-[90%] lg:w-[30%] shadow-md"
+            onSubmit={handleSubmit(onSubmit)}>
+
             <h1 className="text-primary font-bold text-5xl pb-2 border-primary border-b-4">{state}</h1>
             <div className="flex flex-col justify-center items-center gap-4 w-full">
                 {

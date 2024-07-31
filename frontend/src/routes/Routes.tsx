@@ -13,7 +13,7 @@ function Routes() {
             errorElement: <Error />
         },
         {
-            path: "/showTrains/:source/:destination",
+            path: "/showTrains",
             element: <ShowTrains />
         },
         {
